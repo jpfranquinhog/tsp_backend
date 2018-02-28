@@ -29,12 +29,12 @@ function factorial(a){
             fac=fac*x
         }
     }
-    console.log("factorial",fac)
+    return fac;
 }
 
 function sequencia(a){
     //min
-    var min=99999,size=a.length,max=0,soma=0;
+    var min=a[0],size=a.length,max=0,soma=0;
     for(x=0;x<size+1;x++){
         if(a[x]<min){
             min=a[x]
@@ -53,8 +53,18 @@ function sequencia(a){
     console.log("media: ",soma/size)
 }
 
+function cemAleatorios(){
+    var soma=0,i=0;
+    for(x=0;x<100;x++){
+        i=(Math.random()*100)
+        soma=soma+i
+        console.log(x+1,"-",i.toFixed(0))
+    }
+    console.log("soma: ",soma.toFixed(0))
+}
+
 function main(){
-    sequencia([13,1,52,4,0])
+    console.log(factorial(5))
 }
 
 main()
