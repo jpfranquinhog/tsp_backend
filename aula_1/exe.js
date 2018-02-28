@@ -29,7 +29,7 @@ function factorial(a){
             fac=fac*x
         }
     }
-    console.log(fac)
+    console.log("factorial",fac)
 }
 
 function sequencia(a){
@@ -48,13 +48,13 @@ function sequencia(a){
     for(x=0;x<size;x++){
         soma=soma+a[x]
     }
-    console.log(min)
-    console.log(max)
-    console.log(soma/size)
+    console.log("minimo: ",min)
+    console.log("maximo: ",max)
+    console.log("media: ",soma/size)
 }
 
 function main(){
-    sequencia([1,2,3,4,5])
+    sequencia([13,1,52,4,0])
 }
 
 main()
