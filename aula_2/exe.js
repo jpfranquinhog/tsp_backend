@@ -100,8 +100,8 @@ function caixa(x){
 function alunos(x){
     var aluno1 = {nome:"joao", nota1:15, nota2:10, nota3:12};
     var aluno2 = {nome:"maria", nota1:12, nota2:10, nota3:17};
-    var aluno3 = {nome:"antonio", nota1:11, nota2:7, nota3:12};
-    var aluno4 = {nome:"franco", nota1:10, nota2:10, nota3:10};
+    var aluno3 = {nome:"antonio", nota1:10, nota2:10, nota3:10};
+    var aluno4 = {nome:"franco", nota1:12, nota2:9, nota3:16};
     var alunos=[aluno1,aluno2,aluno3,aluno4];
     console.log("listar:");
     listarAlunos(alunos);
@@ -140,26 +140,69 @@ function melhorNota(alunos){
 }
 
 function piorNota(alunos){
-    var i,nota=20,n="";
+    var i,nota=20,nome="";
     for(i=0;i<alunos.length;i++){
         if(alunos[i].nota1<nota){
             nota=alunos[i].nota1;
-            n=alunos[i].nome;
+            nome=alunos[i].nome;
         }
         if(alunos[i].nota2<nota){
             nota=alunos[i].nota2;
-            n=alunos[i].nome;
+            nome=alunos[i].nome;
         }
         if(alunos[i].nota3<nota){
             nota=alunos[i].nota3;
-            n=alunos[i].nome;
+            nome=alunos[i].nome;
         }
     }
-    console.log(n,nota);
+    console.log(nome,nota);
 }
 
-function media(){
-
+function media(alunos){
+    var i,dif=20,nome="",nota=0,med,media=0;
+    for(i=0;i<alunos.length;i++){
+        media=(alunos[i].nota1+alunos[i].nota2+alunos[i].nota3)/3
+        if((media-alunos[i].nota1)%2==0){
+            if(dif>media-alunos[i].nota1){
+                nome=alunos[i].nome;
+                dif=media-alunos[i].nota1;
+                med=media;
+                nota=alunos[i].nota1
+            }else{
+                nome=alunos[i].nome;
+                dif=(media-alunos[i].nota1)/-1;
+                med=media;
+                nota=alunos[i].nota1
+            }
+            if((media-alunos[i].nota2)%2==0){
+                if(dif>media-alunos[i].nota2){
+                    nome=alunos[i].nome;
+                    dif=media-alunos[i].nota2;
+                    med=media;
+                    nota=alunos[i].nota2
+                }else{
+                    nome=alunos[i].nome;
+                    dif=(media-alunos[i].nota2)/-1;
+                    med=media;
+                    nota=alunos[i].nota2
+                }
+            }
+            if((media-alunos[i].nota3)%2==0){
+                if(dif>media-alunos[i].nota3){
+                    nome=alunos[i].nome;
+                    dif=media-alunos[i].nota3;
+                    med=media;
+                    nota=alunos[i].nota3
+                }else{
+                    nome=alunos[i].nome;
+                    dif=(media-alunos[i].nota3)/-1;
+                    med=media;
+                    nota=alunos[i].nota3
+                }
+            }
+        }
+    }
+    console.log(nome," nota: ",nota," media: ",med);
 }
 
 function main(){
