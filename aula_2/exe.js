@@ -98,10 +98,10 @@ function caixa(x){
 }
 
 function alunos(x){
-    var aluno1 = {nome:"joao", nota1:15, nota2:10, nota3:12};
-    var aluno2 = {nome:"maria", nota1:12, nota2:10, nota3:17};
-    var aluno3 = {nome:"antonio", nota1:10, nota2:10, nota3:10};
-    var aluno4 = {nome:"franco", nota1:12, nota2:9, nota3:16};
+    var aluno1 = {nome:"joao", nota1:10, nota2:10, nota3:20};
+    var aluno2 = {nome:"maria", nota1:20, nota2:10, nota3:10};
+    var aluno3 = {nome:"antonio", nota1:10, nota2:20, nota3:10};
+    var aluno4 = {nome:"franco", nota1:20, nota2:10, nota3:20};
     var alunos=[aluno1,aluno2,aluno3,aluno4];
     console.log("listar:");
     listarAlunos(alunos);
