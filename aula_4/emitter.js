@@ -9,9 +9,12 @@ Emitter.prototype.on = function(type,listener){
     this.events[type].push(listener);
 }
 Emitter.prototype.emit = function(type){
-    this.events[type].forEach(element => {
-        element();
-    });
+    if(this.events[type]!=undefined){
+        this.events[type].forEach(element => {
+            element();
+        });
+    }
+    
 }
 
 module.exports=Emitter;
