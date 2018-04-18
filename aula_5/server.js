@@ -46,23 +46,30 @@ app.delete('/del/:id',function(req,res){
     var jsondata=JSON.parse(f); // transforma data "string" para um "objecto"
     var size=Object.keys(jsondata).length;
     var id=req.params.id;
-   
     var video = jsondata["video" + id];
-
-    for (let i = 0; i < size; i++) {
-        vid="video"+i;
-        if(video!=undefined){
-            delete jsondata["video" + id];
-            res.send(JSON.stringify(jsondata));
-            fs.writeFile("videos.json",JSON.stringify(jsondata), function(err) {
-            if(err) {
-                return console.log(err);
-            }
-            console.log("The file was saved!");
-        }); 
+    if(video!=undefined){
+        delete jsondata["video" + id];
+        res.send(JSON.stringify(jsondata));
+        fs.writeFile("videos.json",JSON.stringify(jsondata), function(err) {
+        if(err) {
+            return console.log(err);
         }
+        console.log("The file was saved!");
+    }); 
     }
 });
+
+app.get('/show/:id',function(req,res){
+    var f=readFile("./videos.json");
+    var jsondata=JSON.parse(f); // transforma data "string" para um "objecto"
+    var id=req.params.id;
+    var video = jsondata["video" + id];
+    if(video!=undefined){
+        res.send(JSON.stringify(jsondata["video" + id]));
+    }
+    
+});
+
 
 
 
