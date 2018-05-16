@@ -4,30 +4,25 @@ const bodyParser=require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 const fs = require('fs');
-
-var mysql=require("mysql");
-var connection=mysql.createConnection({
-    host:"localhost",
-    user:"root",
-    password:"",
-    database:"person"
-});
-
-connection.connect();
-
+var connection=require("./config/database");
 app.get('/', function(req, res){
-    connection.query("SELECT * FROM pesoa", function(err,rows){
+    connection.query("SELECT * FROM produto", function(err,rows){
         if(err) throw err;
             res.send(rows);
     });
 });
 
 app.post('/add',function(req,res){
-    var value=req.body;
-    var sql="insert into pesoa (firstname,lastname,age,gender) values ('"+value.firstname+"','"+value.lastname+"','"+value.age+"','"+value.gender+"');";
-    connection.query(sql,function(err,rows){
+    var data=req.body;
+    var sql="insert into produto (name,price,nsell) values (?,?,0);";
+    connection.query(sql,[data.produto,data.valor],function(err,rows){
         if(err) throw err;
             res.send("record added");
     });
@@ -88,4 +83,4 @@ app.get('/list',function(req,res){
     });
 });
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
+app.listen(3001, () => console.log('Example app listening on port 3001!'));
