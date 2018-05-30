@@ -21,6 +21,13 @@ app.get('/', function(req, res){
     });
 });
 
+app.get('/genero', function(req, res){
+    connection.query("SELECT * FROM genero", function(err,rows){
+        if(err) throw err;
+            res.send(rows);
+    });
+});
+
 app.post('/add',function(req,res){
     var data=req.body;
     connection.query("select * from produto where name=?",[data.produto],function(err,rows){
@@ -65,6 +72,7 @@ app.post('/delProduto',function(req,res){
             connection.query("SET FOREIGN_KEY_CHECKS = 0",function(err,rows){});
             connection.query("delete from produto where id="+id,function(err,rows){});
             connection.query("delete from stock where idProduto="+id,function(err,rows){});
+            connection.query("delete from imagem where idProduto="+id,function(err,rows){});
             connection.query("SET FOREIGN_KEY_CHECKS = 1",function(err,rows){});
             console.log("del");
                 if(err) throw err;
@@ -76,47 +84,12 @@ app.post('/delProduto',function(req,res){
     });
 });
 
-app.get('/showid/:id',function(req,res){
-    var id=req.params.id;
-    var sql="select * from pesoa where id=?;";
-    connection.query(sql,id,function(err,rows){
-        if(err) throw err;
-            res.send(rows);
-    });
-});
 
-app.get('/showAllVidsUser/:id',function(req,res){
-    var id=req.params.id;
-    var sql="select * from pesoa where firstname=?;";
-    connection.query(sql,id,function(err,rows){
-        if(err) throw err;
-            res.send(rows);
-    });
-});
 
-app.post('/updateIdade/:id',function(req,res){
-    var id=req.params.id;
-    var value=req.body;
-    var sql="update pesoa set age=? where id=?;";
-    values=[value.age,id]
-    connection.query(sql,values,function(err,rows){
-        if(err) throw err;
-            res.send("row updated");
-    });
-});
-
-app.post('/plus1age/:id',function(req,res){
-    var id=req.params.id;
-    var sql="update pesoa set age=age+1 where id=?;";
-    connection.query(sql,id,function(err,rows){
-        if(err) throw err;
-            res.send("row updated");
-    });
-});
-
-app.get('/list',function(req,res){
-    var sql="select * from pesoa order by age asc";
-    connection.query(sql,function(err,rows){
+app.post('/search', function(req, res){
+    var data=req.body;
+    sql="SELECT produto.id,produto.name,produto.price,COUNT(stock.chave) AS stock, imagem.url AS image FROM produto left join stock on produto.id=stock.idProduto LEFT JOIN imagem on produto.id=imagem.idProduto where stock.active=0 AND produto.name LIKE '%?%' GROUP BY produto.name,produto.price";
+    connection.query(sql,[data.nome],function(err,rows){
         if(err) throw err;
             res.send(rows);
     });

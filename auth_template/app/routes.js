@@ -24,6 +24,17 @@ module.exports = function(app, passport) {
         failureRedirect:"/login",
         failureFlash:true
     }));
+
+    app.get('/login', function(req, res, next) {
+        passport.authenticate('local-login', function(err, user, info) {
+            if (err) { return next(err); }
+            if (!user) { return res.send("user nao encontrado"); }
+            req.logIn(user, function(err) {
+                if (err) { return next(err); }
+                return res.send(user);
+            });
+        })(req, res, next);
+    });
     // =====================================
     // SIGNUP ==============================
     // =====================================
