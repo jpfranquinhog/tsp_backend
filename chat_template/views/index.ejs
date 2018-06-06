@@ -6,12 +6,27 @@
     <script src="/socket.io/socket.io.js"></script>
     <title> Chat App</title>
   </head>
-  
   <body>
+    <style>
+      .online{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 200px;
+        background-color: grey;
+        border: black 1px solid;
+        align-items: center;
+      }
+    </style>
     <header>
       <h1> Chat</h1>
     </header>
  
+    <section id="online" class="online">
+      <h1>online users</h1>
+      <section id="list"></section>
+    </section>
+
     <section id="chatroom">
       <section id="feedback"></section>
     </section>
