@@ -1,6 +1,7 @@
 // require and instantiate express
 var express = require('express');
 var app = express();
+const uuid = require("uuid/v1");
 
 app.set('view engine', 'ejs'); // set up ejs for templating
 
@@ -24,7 +25,9 @@ var io = require('socket.io')(server);
 io.on('connection', function (socket) {
     console.log("New User Connected");    
     //default username
-    socket.username = "Anonymous"  
+    socket.username = "Anonymous";
+    socket.id = uuid();
+    io.sockets.emit('new_user', { message: socket.username+" entro na sala"});
 
     //listen on new_message
     socket.on('new_message', (data) => {

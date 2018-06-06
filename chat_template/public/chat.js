@@ -30,6 +30,11 @@ $(function () {
         message.val('');
         chatroom.append("<p class='message' style='color:blue;' >"+ data.message + data.username + "</p>")
     }) 
+    socket.on("new_user", (data) => {
+        feedback.html('');
+        message.val('');
+        chatroom.append("<p class='message' style='color:blue;' >"+ data.message +"</p>")
+    }) 
     socket.on("new_username", (data) => {
         username.val(data.username);
     }) 
